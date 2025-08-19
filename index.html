@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David's Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: goldenrod;
+            color: goldenrod;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: black;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff9800;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        marquee {
+            background-color: #ff9800;
+            color: white;
+            font-weight: bold;
+            padding: 10px 0;
+            font-size: 18px;
+        }
+
+        section {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .card {
+            background: black;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .about {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .about img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e68900;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <!-- Profile picture at the top -->
+        <img src="images.jpg" alt="David Profile Picture">
+        <h1>David's Portfolio</h1>
+        <p>Welcome to my world of creativity!</p>
+    </header>
+
+    <!-- Marquee below header -->
+    <marquee behavior="scroll" direction="left">🚀 Welcome to my portfolio! Check out my projects below. 🚀</marquee>
+
+    <!-- About Us Section -->
+    <section id="about-us">
+        <div class="card about">
+            <img src="images.jpg" alt="About Us Image">
+            <div>
+                <h2>About Us</h2>
+                <p>We are a creative team passionate about building interactive websites, games, and digital experiences that inspire and engage people around the world.</p>
+                <a href="https://www.roblox.com" target="_blank" class="btn">Visit My Roblox Profile</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="card">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Web Design & Development</li>
+                <li>Game Creation in Roblox</li>
+                <li>Custom HTML/CSS/JS Projects</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact-us">
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p>Email: example@email.com</p>
+            <p>Phone: +234 800 000 0000</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 David. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            alert("Welcome to David's Portfolio!");
+        }
+    </script>
+
+</body>
+</html>
