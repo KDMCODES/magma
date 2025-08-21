@@ -3,185 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David's Portfolio</title>
+    <title>Memory Card Game</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: goldenrod;
-            color: goldenrod;
+            background: linear-gradient(135deg, BLACK, goldenrod);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #333;
         }
-
-        /* Navigation Bar */
-        nav {
-            background-color: black;
-            padding: 10px 0;
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(99, 20, 20);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
-
-        nav ul {
-            margin: 0;
-            padding: 0;
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            width: 500px;
+            max-width: 100%;
+            background-color: #fdba02;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .info-box {
+            text-align: center;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6e8efb;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            height: 100px;
+            width: 100px;
+            background-color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
             justify-content: center;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #ff9800;
-        }
-
-        header {
-            background-color: black;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-        }
-
-        marquee {
-            background-color: #ff9800;
-            color: white;
-            font-weight: bold;
-            padding: 10px 0;
-            font-size: 18px;
-        }
-
-        section {
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .card {
-            background: black;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .about {
-            display: flex;
             align-items: center;
-            gap: 20px;
+            font-size: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
         }
-
-        .about img {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            object-fit: cover;
+        
+        .card.flipped {
+            transform: rotateY(180deg);
         }
-
-        .btn {
-            display: inline-block;
-            background-color: #ff9800;
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card-front {
+            background-color: goldenrod;
             color: white;
-            padding: 10px 20px;
-            margin-top: 10px;
+            transform: rotateY(180deg);
+        }
+        
+        .card-back {
+            background: linear-gradient(45deg, goldenrod, black);
+            color: transparent;
+        }
+        
+        .controls {
+            margin-top: 30px;
+        }
+        
+        button {
+            background-color: #fff;
+            color: #6e8efb;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
-
-        .btn:hover {
-            background-color: #e68900;
+        
+        button:hover {
+            background-color: blue;
+            color: rgb(244, 244, 248);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: black;
+        
+        .win-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             color: white;
+            font-size: 2rem;
+            display: none;
+        }
+        
+        .win-message.show {
+            display: flex;
+        }
+        
+        @media (max-width: 500px) {
+            .game-board {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .card {
+                height: 80px;
+                width: 80px;
+            }
+            
+            .game-info {
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="#about-us">About Us</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact-us">Contact Us</a></li>
-        </ul>
-    </nav>
-
     <header>
-        <!-- Profile picture at the top -->
-        <img src="images.jpg" alt="David Profile Picture">
-        <h1>David's Portfolio</h1>
-        <p>Welcome to my world of creativity!</p>
+        <h1>Memory Card Game</h1>
+        <p>Flip cards to find matching pairs</p>
     </header>
-
-    <!-- Marquee below header -->
-    <marquee behavior="scroll" direction="left">🚀 Welcome to my portfolio! Check out my projects below. 🚀</marquee>
-
-    <!-- About Us Section -->
-    <section id="about-us">
-        <div class="card about">
-            <img src="images.jpg" alt="About Us Image">
-            <div>
-                <h2>About Us</h2>
-                <p>We are a creative team passionate about building interactive websites, games, and digital experiences that inspire and engage people around the world.</p>
-                <a href="https://www.roblox.com" target="_blank" class="btn">Visit My Roblox Profile</a>
-            </div>
+    
+    <div class="game-info">
+        <div class="info-box">
+            <div class="info-label">Time</div>
+            <div class="info-value" id="timer">0s</div>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services">
-        <div class="card">
-            <h2>Our Services</h2>
-            <ul>
-                <li>Web Design & Development</li>
-                <li>Game Creation in Roblox</li>
-                <li>Custom HTML/CSS/JS Projects</li>
-            </ul>
+        <div class="info-box">
+            <div class="info-label">Moves</div>
+            <div class="info-value" id="moves">0</div>
         </div>
-    </section>
-
-    <!-- Contact Us Section -->
-    <section id="contact-us">
-        <div class="card">
-            <h2>Contact Us</h2>
-            <p>Email: example@email.com</p>
-            <p>Phone: +234 800 000 0000</p>
+        <div class="info-box">
+            <div class="info-label">Pairs Found</div>
+            <div class="info-value" id="pairs">0/8</div>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 David. All rights reserved.</p>
-    </footer>
+    </div>
+    
+    <div class="game-board" id="game-board"></div>
+    
+    <div class="controls">
+        <button id="reset-btn">New Game</button>
+    </div>
+    
+    <div class="win-message" id="win-message">
+        <h2>Congratulations!</h2>
+        <p>You found all pairs in <span id="final-time">0</span> seconds with <span id="final-moves">0</span> moves!</p>
+        <button id="play-again">Play Again</button>
+    </div>
 
     <script>
-        window.onload = function() {
-            alert("Welcome to David's Portfolio!");
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Game elements
+            const gameBoard = document.getElementById('game-board');
+            const timerElement = document.getElementById('timer');
+            const movesElement = document.getElementById('moves');
+            const pairsElement = document.getElementById('pairs');
+            const resetButton = document.getElementById('reset-btn');
+            const winMessage = document.getElementById('win-message');
+            const finalTime = document.getElementById('final-time');
+            const finalMoves = document.getElementById('final-moves');
+            const playAgainButton = document.getElementById('play-again');
+            
+            // Game state
+            let cards = [];
+            let flippedCards = [];
+            let matchedPairs = 0;
+            let moves = 0;
+            let timer = 0;
+            let timerInterval;
+            let gameStarted = false;
+            
+            // Card symbols
+            const symbols = ['🍎', '🍌', '🍇', '🍊', '🍓', '🍉', '🍒', '🥝'];
+            
+            // Initialize game
+            initializeGame();
+            
+            // Set up event listeners
+            resetButton.addEventListener('click', resetGame);
+            playAgainButton.addEventListener('click', resetGame);
+            
+            function initializeGame() {
+                // Create pairs of cards
+                let cardValues = [...symbols, ...symbols];
+                
+                // Shuffle the cards
+                cardValues.sort(() => Math.random() - 0.5);
+                
+                // Create card elements
+                gameBoard.innerHTML = '';
+                cardValues.forEach((symbol, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.dataset.value = symbol;
+                    card.innerHTML = `
+                        <div class="card-front">${symbol}</div>
+                        <div class="card-back"></div>
+                    `;
+                    card.addEventListener('click', () => flipCard(card));
+                    gameBoard.appendChild(card);
+                });
+                
+                cards = Array.from(document.querySelectorAll('.card'));
+            }
+            
+            function flipCard(card) {
+                // If card is already flipped or matched, do nothing
+                if (card.classList.contains('flipped') || flippedCards.length >= 2) {
+                    return;
+                }
+                
+                // Start timer on first move
+                if (!gameStarted) {
+                    startTimer();
+                    gameStarted = true;
+                }
+                
+                // Flip the card
+                card.classList.add('flipped');
+                flippedCards.push(card);
+                
+                // Check for match if two cards are flipped
+                if (flippedCards.length === 2) {
+                    moves++;
+                    movesElement.textContent = moves;
+                    
+                    setTimeout(checkForMatch, 500);
+                }
+            }
+            
+            function checkForMatch() {
+                const [card1, card2] = flippedCards;
+                const isMatch = card1.dataset.value === card2.dataset.value;
+                
+                if (isMatch) {
+                    // Cards match - keep them flipped
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    matchedPairs++;
+                    pairsElement.textContent = `${matchedPairs}/8`;
+                    
+                    // Check for win
+                    if (matchedPairs === 8) {
+                        endGame();
+                    }
+                } else {
+                    // Cards don't match - flip them back
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                }
+                
+                // Reset flipped cards array
+                flippedCards = [];
+            }
+            
+            function startTimer() {
+                timer = 0;
+                timerInterval = setInterval(() => {
+                    timer++;
+                    timerElement.textContent = `${timer}s`;
+                }, 1000);
+            }
+            
+            function stopTimer() {
+                clearInterval(timerInterval);
+            }
+            
+            function endGame() {
+                stopTimer();
+                finalTime.textContent = timer;
+                finalMoves.textContent = moves;
+                winMessage.classList.add('show');
+            }
+            
+            function resetGame() {
+                stopTimer();
+                gameStarted = false;
+                flippedCards = [];
+                matchedPairs = 0;
+                moves = 0;
+                timer = 0;
+                
+                timerElement.textContent = '0s';
+                movesElement.textContent = '0';
+                pairsElement.textContent = '0/8';
+                
+                winMessage.classList.remove('show');
+                
+                initializeGame();
+            }
+        });
     </script>
-
 </body>
 </html>
